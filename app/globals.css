@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Vanguard tactical tokens (--tac-*) plus shadcn HSL channels mapped to the same
+  arctic ops console palette so primitives and custom chrome stay in sync.
+*/
+:root {
+  --tac-bg: #e8eef3;
+  --tac-panel: #f7f9fb;
+  --tac-panel-elevated: #dde5ec;
+  --tac-border: #c5d0da;
+  --tac-border-strong: #9aabb8;
+  --tac-text: #152028;
+  --tac-text-muted: #4d5f6d;
+  --tac-text-dim: #7a8d9a;
+  --tac-accent: #0c7c93;
+  --tac-accent-hover: #1093ad;
+  --tac-status-ok: #1f8a5c;
+  --tac-status-pending: #0c7c93;
+  --tac-status-error: #c23d32;
+  --tac-warning: #c4892a;
+  --tac-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --tac-sans: var(--font-plex-sans), system-ui, sans-serif;
+
+  /* Cool mist paper + ops-teal primary */
+  --background: 210 24% 93%;
+  --foreground: 205 28% 12%;
+  --card: 210 33% 98%;
+  --card-foreground: 205 28% 12%;
+  --popover: 210 33% 98%;
+  --popover-foreground: 205 28% 12%;
+  --primary: 191 85% 31%;
+  --primary-foreground: 195 40% 98%;
+  --secondary: 208 22% 90%;
+  --secondary-foreground: 205 28% 12%;
+  --muted: 208 20% 90%;
+  --muted-foreground: 205 16% 36%;
+  --accent: 191 35% 92%;
+  --accent-foreground: 191 85% 26%;
+  --destructive: 4 60% 48%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 152 64% 33%;
+  --success-foreground: 0 0% 100%;
+  --warning: 36 68% 46%;
+  --warning-foreground: 36 40% 12%;
+  --border: 208 18% 81%;
+  --input: 208 18% 81%;
+  --ring: 191 85% 31%;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--tac-sans);
+  }
+}
+
+@layer components {
+  .ops-mono {
+    font-family: var(--tac-mono);
+  }
+
+  .ops-label {
+    @apply mb-1.5 block text-[0.7rem] font-medium tracking-wide text-muted-foreground;
+  }
+
+  .map-glass {
+    background: rgba(247, 249, 251, 0.78);
+    border: 1px solid rgba(21, 32, 40, 0.1);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 10px 32px rgba(15, 28, 38, 0.1);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .ops-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .ops-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .ops-scroll::-webkit-scrollbar-thumb {
+    background: var(--tac-border-strong);
+    border-radius: 3px;
+  }
+}
+
+/* Map interaction cursors (hotspot centered at 12,12) */
+.map-cursor-pan {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='%23fff' stroke-width='3.2' d='M12 3.5v17M3.5 12h17M8.2 6.2 12 3.2l3.8 3M8.2 17.8 12 20.8l3.8-3M6.2 8.2 3.2 12l3 3.8M17.8 8.2 20.8 12l-3 3.8'/%3E%3Cpath stroke='%23152028' stroke-width='1.6' d='M12 3.5v17M3.5 12h17M8.2 6.2 12 3.2l3.8 3M8.2 17.8 12 20.8l3.8-3M6.2 8.2 3.2 12l3 3.8M17.8 8.2 20.8 12l-3 3.8'/%3E%3C/g%3E%3C/svg%3E") 12 12, grab;
+}
+.map-cursor-pan-active {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='%23fff' stroke-width='3.2' d='M12 4.5v15M4.5 12h15M8.5 7 12 4.2l3.5 2.8M8.5 17 12 19.8l3.5-2.8M7 8.5 4.2 12 7 15.5M17 8.5 19.8 12 17 15.5'/%3E%3Cpath stroke='%230c7c93' stroke-width='1.6' d='M12 4.5v15M4.5 12h15M8.5 7 12 4.2l3.5 2.8M8.5 17 12 19.8l3.5-2.8M7 8.5 4.2 12 7 15.5M17 8.5 19.8 12 17 15.5'/%3E%3C/g%3E%3C/svg%3E") 12 12, grabbing;
+}
+.map-cursor-rotate {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='%23fff' stroke-width='3.2' d='M18.2 9.2A7 7 0 1 0 19 13'/%3E%3Cpath stroke='%23fff' stroke-width='3.2' d='M18.5 4.8v4.4h-4.4'/%3E%3Cpath stroke='%23152028' stroke-width='1.6' d='M18.2 9.2A7 7 0 1 0 19 13'/%3E%3Cpath stroke='%23152028' stroke-width='1.6' d='M18.5 4.8v4.4h-4.4'/%3E%3C/g%3E%3C/svg%3E") 12 12, grab;
+}
+.map-cursor-spawn {
+  cursor: crosshair;
+}
+
+.map-cursor-rotate-active {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='%23fff' stroke-width='3.2' d='M18.2 9.2A7 7 0 1 0 19 13'/%3E%3Cpath stroke='%23fff' stroke-width='3.2' d='M18.5 4.8v4.4h-4.4'/%3E%3Cpath stroke='%230c7c93' stroke-width='1.6' d='M18.2 9.2A7 7 0 1 0 19 13'/%3E%3Cpath stroke='%230c7c93' stroke-width='1.6' d='M18.5 4.8v4.4h-4.4'/%3E%3C/g%3E%3C/svg%3E") 12 12, grabbing;
+}
