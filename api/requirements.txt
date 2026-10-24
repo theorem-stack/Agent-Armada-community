@@ -1,8 +1,7 @@
 fastapi
 uvicorn
 numpy
-openai
-pyyaml
+openai==3.37.0
 python-dotenv
 pytest
 httpx
