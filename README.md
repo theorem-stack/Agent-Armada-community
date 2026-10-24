@@ -1,8 +1,8 @@
 # Agent Armada
 
-One operator types a mission. A language model compiles it into a checked plan, and a geometry kernel flies a simulated drone swarm through that plan in a 3D scene.
+[![CI](https://github.com/theorem-stack/Agent-Armada-community/actions/workflows/ci.yml/badge.svg)](https://github.com/theorem-stack/Agent-Armada-community/actions/workflows/ci.yml)
 
-A demo recording is not included in this repository.
+One operator types a mission. A language model compiles it into a checked plan, and a geometry kernel flies a simulated drone swarm through that plan in a 3D scene.
 
 Second place, LabLabAI Reasoning with o1 international hackathon, October 2024.
 
@@ -69,7 +69,7 @@ The model name is `gpt-4o-mini` (`OPENAI_MODEL` in `api/config.py`), temperature
 | UI | Next.js 14, React 18, TypeScript and JavaScript, Tailwind CSS, Radix / shadcn-style components, Three.js |
 | Node | 18.17 or newer (Next.js 14). Verified here on Node 22. |
 
-`requirements.txt` leaves `openai`, `numpy`, `pytest`, and `httpx` unpinned. FastAPI pulls Pydantic. `api/requirements.txt` is a looser copy of that list; `npm run fastapi-dev` installs the root file.
+`requirements.txt` pins `openai==3.37.0` and leaves `numpy`, `pytest`, and `httpx` unpinned. FastAPI pulls Pydantic. `api/requirements.txt` is a looser copy of that list, with the same `openai` pin; `npm run fastapi-dev` installs the root file.
 
 ## Getting started
 
@@ -139,7 +139,7 @@ python -m pytest
 
 The suite is 128 tests under `api/tests/`. It covers geometry and the kernel, plan IR, validation and repair parsing, predicates, session loops, and golden plan JSON. `conftest.py` puts the repo root on `sys.path`.
 
-`httpx` is listed in `requirements.txt` because Starlette’s `TestClient` imports it. The unpinned `openai` package depends on `httpx2` rather than the `httpx` module. The resolve used while preparing this snapshot was openai 3.37.0.
+`httpx` is listed in `requirements.txt` because Starlette’s `TestClient` imports it. `openai==3.37.0` depends on `httpx2` rather than the `httpx` module.
 
 ## Project structure
 
@@ -169,8 +169,7 @@ docs/spatial-kernel.md
 - The planner is one completion plus repairs. Kernel queries run in the validator and the skill handlers.
 - Motion is kinematic steering in the plane, plus a fixed altitude. The 5×5 terrain grid in `api/config.py` is a debug field. Alignment and cohesion are weighted at zero.
 - The WebSocket sends the whole snapshot at 10 Hz.
-- `PyYAML` is installed and unused. `app/api/helloNextJs/route.ts` is a leftover Next.js route. `public/next.svg` and `public/vercel.svg` are starter assets.
-- `openai` is unpinned. A live compile against the installed SDK was not part of the test suite.
+- A live compile against the installed SDK was not part of the test suite.
 
 ## History
 
